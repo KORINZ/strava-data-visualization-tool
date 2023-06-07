@@ -2,6 +2,8 @@
 
 This project is a set of Python scripts to visualize your Strava activity data using pandas and matplotlib. You can use it to see patterns, compare different types of workouts, understand your performance over time, and more.
 
+![basic_stat](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/d4222079-edb5-4d0d-9a0a-65042515e2fb)
+
 ## Summary
 
 * Fetches your Strava activity data using Strava's API.
