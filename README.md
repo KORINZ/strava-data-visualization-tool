@@ -2,10 +2,11 @@
 
 This project uses Python scripts to visualize your Strava activity data using pandas and matplotlib. You can use it to see patterns, compare different types of workouts, understand your performance over time, and more.
 
+## Sample Images
+
 ![Figure_1](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/2d78093d-4e38-4503-b0ad-ebb90fa6b914)
 ![Figure_3](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/074572c5-cbfd-41c5-9487-d64e56bbce4d)
 ![Figure_7](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/cdb6cd18-1f86-4b54-8ed6-37631112024c)
-
 
 ## Summary
 
@@ -48,7 +49,7 @@ You will also need a Strava API key, which you can get by creating an applicatio
 
 2. **Basic statistics plots**: This includes a bar chart of distance, a line chart of distance, a bar chart of altitude gains, and a scatter chart of duration.
 
-3. **Detailed statistics plots**: This includes a scatter plot of distance, a bar chart of calories burned, a scatter plot of average heart rate, and a scatter plot of the average pace. 
+3. **Detailed statistics plots**: This includes a scatter plot of distance, a bar chart of calories burned, a scatter plot of average heart rate, and a scatter plot of the average pace.
 
 4. **3D scatter plot**: You can generate a 3D scatter plot of average pace vs. duration vs. temperature, colored by average heart rate.
 
