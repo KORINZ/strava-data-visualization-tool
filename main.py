@@ -86,7 +86,7 @@ def scatter_plots_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[0].grid(True, linewidth=0.75)
     axs[0].invert_yaxis()
     cbar0 = fig.colorbar(scatter0, ax=axs[0])
-    cbar0.set_label("平均心拍数 (bpm) (Average Heart Rate)")
+    cbar0.set_label("平均心拍数 (bpm) [Average Heart Rate]")
 
     # Scatter plot time of day vs distance, colored by kudos
     default_marker_size = mpl.rcParams["lines.markersize"]
@@ -213,7 +213,7 @@ def plot_detailed_stat_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     # Fit the data
     xfit, yfit, polynomial = fit_data(df, "distance_km")
     xfit_dates = df["date"].min() + pd.to_timedelta(xfit, "D")
-    fitting_label = f"カーブフィッティング (次数 {len(polynomial)}) (Curve Fitting (Degree {len(polynomial)}))"
+    fitting_label = f"カーブフィッティング (次数 {len(polynomial)})\nCurve Fitting (Degree {len(polynomial)})"
     axs[0].plot(
         xfit_dates,
         yfit,
@@ -346,7 +346,7 @@ def plot_pie_chart_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
 
     # Change color of text in 'Night' section to white
     for label, pct in zip(labels, autopct_texts):
-        if label.get_text() == "夜: 18:00 - 5:00 [Night]":
+        if label.get_text() == "夜: 18:00 - 5:00 (Night)":
             pct.set_color("white")
 
     # Bar plot for Day of Week
