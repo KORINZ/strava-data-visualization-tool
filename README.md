@@ -1,6 +1,6 @@
 # Strava Data Visualization Tool
 
-This project is a set of Python scripts to visualize your Strava activity data using pandas and matplotlib. You can use it to see patterns, compare different types of workouts, understand your performance over time, and more.
+This project uses Python scripts to visualize your Strava activity data using pandas and matplotlib. You can use it to see patterns, compare different types of workouts, understand your performance over time, and more.
 
 ![Figure_1](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/2d78093d-4e38-4503-b0ad-ebb90fa6b914)
 ![Figure_3](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/074572c5-cbfd-41c5-9487-d64e56bbce4d)
@@ -11,9 +11,9 @@ This project is a set of Python scripts to visualize your Strava activity data u
 
 * Fetches your Strava activity data using Strava's API.
 * Visualizes the data using various plots like scatter plots, line plots, bar charts, pie charts, 3D plots, and histograms.
-* Plots include distance vs. average pace, altitude gains, duration, heart rate, and many more.
+* Plots include distance vs. average pace, altitude gains, duration, heart rate, etc.
 * Fetches and merges weather data like temperature, humidity, and air pressure into your activity data using the Meteostat API.
-* Generates a correlation matrix and scatter matrix of your data to help you find interesting relationships.
+* Generates your data's correlation matrix and scatter matrix to help you find interesting relationships.
 
 ## Requirements
 
@@ -44,13 +44,13 @@ You will also need a Strava API key, which you can get by creating an applicatio
 
 ## Features
 
-1. **Scatter plots**: Two scatter plots are available, one plotting distance vs average pace, colored by average heart rate, and the other plotting time of day vs distance, colored by kudos.
+1. **Scatter plots**: Two scatter plots are available, one plotting distance vs. average pace, colored by average heart rate, and the other plotting time of day vs. distance, colored by kudos.
 
-2. **Basic statistics plots**: This includes bar chart of distance, line chart of distance, bar chart of altitude gains, and scatter chart of duration.
+2. **Basic statistics plots**: This includes a bar chart of distance, a line chart of distance, a bar chart of altitude gains, and a scatter chart of duration.
 
-3. **Detailed statistics plots**: This includes scatter plot of distance, bar chart of calories burned, scatter plot of average heart rate, and scatter plot of average pace. 
+3. **Detailed statistics plots**: This includes a scatter plot of distance, a bar chart of calories burned, a scatter plot of average heart rate, and a scatter plot of the average pace. 
 
-4. **3D scatter plot**: You can generate a 3D scatter plot of average pace vs duration vs temperature, colored by average heart rate.
+4. **3D scatter plot**: You can generate a 3D scatter plot of average pace vs. duration vs. temperature, colored by average heart rate.
 
 5. **Pie chart**: This tool can create a pie chart showing the proportion of activities during different periods of the day.
 
