@@ -5,7 +5,7 @@ This project uses Python scripts to visualize your Strava activity data using pa
 ## Sample Images
 
 ![Figure_1](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/2d78093d-4e38-4503-b0ad-ebb90fa6b914)
-![Figure_3](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/074572c5-cbfd-41c5-9487-d64e56bbce4d)
+![Figure_3](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/07457b1d-92b5-4ab2-9d04-55fed39e07f1)
 ![Figure_7](https://github.com/KORINZ/strava-data-visualization-tool/assets/111611023/cdb6cd18-1f86-4b54-8ed6-37631112024c)
 
 ## Summary
