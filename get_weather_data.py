@@ -75,7 +75,7 @@ def get_temperature_from_df(df: pd.DataFrame) -> pd.DataFrame:
     weather_df = weather_df.drop(columns=["station_distance_m"], axis=1)
 
     # Merge the weather data into the original DataFrame
-    df = df.drop(columns=['temperature_c', 'humidity_pct', 'air_pressure_hpa'])
+    df = df.drop(columns=["temperature_c", "humidity_pct", "air_pressure_hpa"])
     df = pd.merge(df, weather_df, on="id", how="left")
 
     return df

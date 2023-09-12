@@ -2,14 +2,12 @@ import sys
 import os
 import pandas as pd
 import seaborn as sns
-import matplotlib as mpl
 import matplotlib.pyplot as plt
+from utility import load_matplotlib_local_fonts
 
-"""Plot the correlation matrix and scatter matrix of the numeric columns"""
 
-
-mpl.rcParams["font.family"] = "Meiryo"
-mpl.rcParams["font.size"] = 12
+# Load local fonts
+load_matplotlib_local_fonts("fonts/ipaexg.ttf", 12)
 DPI = 300
 
 if not os.path.exists("images"):
@@ -29,7 +27,8 @@ df = df[df["type"] == "Run"]
 
 # Drop columns that are not needed for this analysis
 df = df.drop(
-    ["id", "type", "datetime", "start_location", "humidity_pct", "air_pressure_hpa"],
+    ["id", "type", "datetime", "start_location",
+        "humidity_pct", "air_pressure_hpa"],
     axis=1,
 )
 

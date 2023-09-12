@@ -10,6 +10,7 @@ import matplotlib as mpl
 from typing import Literal, Tuple
 from matplotlib.dates import DateFormatter
 from matplotlib.ticker import FuncFormatter, MaxNLocator
+from utility import load_matplotlib_local_fonts
 
 # ペースの最小値と最大値を設定し、それより速いペースと遅いペースのアクティビティを除外する (min/km)
 MIN_PACE = 3
@@ -22,8 +23,7 @@ MIN_DISTANCE = 0.5
 mpl.rcParams["lines.markersize"] = 3.9
 
 # フォントを設定する
-mpl.rcParams["font.family"] = "Meiryo"
-mpl.rcParams["font.size"] = 12
+load_matplotlib_local_fonts("fonts/ipaexg.ttf", 12)
 
 # 他の設定
 mpl.rcParams["axes.axisbelow"] = True
@@ -100,7 +100,8 @@ def scatter_plots_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[1].xaxis.set_major_locator(MaxNLocator(nbins=9))
     axs[1].xaxis.set_major_formatter(
         FuncFormatter(
-            lambda x, pos: "{:02}:{:02}".format(int(x // 3600), int((x % 3600) // 60))
+            lambda x, pos: "{:02}:{:02}".format(
+                int(x // 3600), int((x % 3600) // 60))
         )
     )
     axs[1].set_xlim([0, 24 * 3600])
@@ -145,7 +146,8 @@ def plot_basic_stat_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[1].plot_date(
         df["date"], df["distance_km"], "#FC4C02", marker="o", markerfacecolor="white"
     )
-    axs[1].fill_between(df["date"], df["distance_km"], color="#FC4C02", alpha=0.1)
+    axs[1].fill_between(df["date"], df["distance_km"],
+                        color="#FC4C02", alpha=0.1)
     axs[1].set_ylabel("距離 (km)")
     axs[1].tick_params("x", labelbottom=False)
     axs[1].yaxis.set_major_locator(MaxNLocator(nbins=6))
@@ -161,7 +163,8 @@ def plot_basic_stat_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[2].set_ylabel("獲得標高 (m)")
     axs[2].tick_params("x", labelbottom=False)
     axs[2].yaxis.set_major_locator(MaxNLocator(nbins=6))
-    axs[2].yaxis.set_major_formatter(FuncFormatter(lambda x, _: "{:.0f}".format(x)))
+    axs[2].yaxis.set_major_formatter(
+        FuncFormatter(lambda x, _: "{:.0f}".format(x)))
     axs[2].grid(True, axis="y", linestyle="--", linewidth=0.75)
 
     # Plot duration (scatter chart)
@@ -223,7 +226,8 @@ def plot_detailed_stat_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[0].legend()
 
     # Plot calories burned (bar chart)
-    axs[1].bar(df["date"], df["calories_kcal"], color="#EBD944", align="center")
+    axs[1].bar(df["date"], df["calories_kcal"],
+               color="#EBD944", align="center")
     axs[1].set_ylabel("カロリー (kcal)")
     axs[1].tick_params("x", labelbottom=False)
     axs[1].grid(True, axis="y", linestyle="--", linewidth=0.75)
@@ -369,9 +373,11 @@ def plot_pie_chart_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
 
     # Bar plot for Month
     df["month"] = df["date"].dt.month
-    month_counts = df["month"].value_counts().reindex(range(1, 13), fill_value=0)
+    month_counts = df["month"].value_counts().reindex(
+        range(1, 13), fill_value=0)
 
-    ax[1, 1].bar(month_counts.index, month_counts.values.tolist(), color="#457B9D")
+    ax[1, 1].bar(month_counts.index,
+                 month_counts.values.tolist(), color="#457B9D")
     ax[1, 1].set_title("月別頻度")
     ax[1, 1].set_xlabel("月")
     ax[1, 1].set_xticks(range(1, 13))
@@ -382,7 +388,8 @@ def plot_pie_chart_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     df["year"] = df["date"].dt.year
     year_counts = df["year"].value_counts().sort_index()
 
-    ax[1, 0].bar(year_counts.index, year_counts.values.tolist(), color="#FC4C02")
+    ax[1, 0].bar(year_counts.index,
+                 year_counts.values.tolist(), color="#FC4C02")
     ax[1, 0].set_title("年別頻度")
     ax[1, 0].set_xlabel("年")
     ax[1, 0].set_ylabel("活動数")
@@ -399,7 +406,8 @@ def plot_histograms_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     fig, axs = plt.subplots(3, 1, figsize=[8, 10])
 
     # distance (histogram)
-    axs[0].hist(df["distance_km"], bins="auto", color="#FC4C02", edgecolor="white")
+    axs[0].hist(df["distance_km"], bins="auto",
+                color="#FC4C02", edgecolor="white")
     axs[0].set_xlabel("距離 (km)")
     axs[0].set_ylabel("頻度")
     axs[0].set_title("距離の分布")
@@ -407,7 +415,8 @@ def plot_histograms_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[0].grid(True, axis="y", linestyle="--")
 
     # duration (histogram)
-    axs[1].hist(df["duration_min"], bins="auto", color="#AB68FF", edgecolor="white")
+    axs[1].hist(df["duration_min"], bins="auto",
+                color="#AB68FF", edgecolor="white")
     axs[1].set_xlabel("時間 (min)")
     axs[1].set_ylabel("頻度")
     axs[1].set_title("時間の分布")
@@ -415,7 +424,8 @@ def plot_histograms_from_df(df: pd.DataFrame) -> matplotlib.figure.Figure:
     axs[1].grid(True, axis="y", linestyle="--")
 
     # alitude_gains (histogram)
-    axs[2].hist(df["altitude_gains_m"], bins="auto", color="#617A55", edgecolor="white")
+    axs[2].hist(df["altitude_gains_m"], bins="auto",
+                color="#617A55", edgecolor="white")
     axs[2].set_xlabel("獲得標高 (m)")
     axs[2].set_ylabel("頻度")
     axs[2].set_title("獲得標高の分布")
