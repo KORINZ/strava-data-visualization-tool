@@ -19,6 +19,7 @@ try:
     )
 except FileNotFoundError:
     print("strava_data.csvが見つかりません。get_strava_data.pyを実行してください。")
+    print("strava_data.csv not found. Please run get_strava_data.py.")
     sys.exit(1)
 
 
@@ -34,16 +35,16 @@ df = df.drop(
 
 # Mapping from English to Japanese
 column_name_mapping = {
-    "distance_km": "距離",
-    "average_pace_min_km": "平均ペース",
-    "duration_min": "持続時間",
-    "altitude_gains_m": "獲得標高",
-    "average_heart_rate_bpm": "平均心拍数",
-    "calories_kcal": "カロリー",
+    "distance_km": "距離 (km)\nDistance",
+    "average_pace_min_km": "ペース (min/km)\nPace",
+    "duration_min": "時間 (min)\nDuration",
+    "altitude_gains_m": "標高 (m)\nAltitude",
+    "average_heart_rate_bpm": "心拍数 (bpm)\nHeart Rate",
+    "calories_kcal": "カロリー (kcal)\nCalories",
     "kudos": "kudos",
-    "temperature_c": "気温",
-    "humidity_pct": "湿度",
-    "air_pressure_hpa": "気圧",
+    "temperature_c": "気温 (℃)\nTemperature",
+    "humidity_pct": "湿度 (%)\nHumidity",
+    "air_pressure_hpa": "気圧 (hPa)\nAir Pressure",
 }
 
 # Rename the columns
@@ -58,7 +59,7 @@ correlation_matrix = df.corr()
 # Generate a heatmap of the correlation matrix
 plt.figure(1, figsize=(10, 8))
 sns.heatmap(correlation_matrix, annot=True, cmap="crest", vmin=-1, vmax=1)
-plt.title("相関行列")
+plt.title("相関行列 (Correlation Matrix)")
 plt.tight_layout()
 plt.savefig("images/correlation_matrix.png", dpi=DPI)
 

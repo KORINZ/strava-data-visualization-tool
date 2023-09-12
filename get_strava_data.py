@@ -30,10 +30,12 @@ def get_credentials() -> tuple:
             client_id = credentials["client_id"]
             client_secret = credentials["client_secret"]
     except FileNotFoundError:
-        client_id = input("クライアントIDを入力してください: ")
-        client_secret = input("クライアントシークレットを入力してください: ")
+        client_id = input("クライアントIDを入力してください (Please enter your client ID): ")
+        client_secret = input(
+            "クライアントシークレットを入力してください (Please enter your client secret): ")
         with open("credentials.json", "w") as f:
-            json.dump({"client_id": client_id, "client_secret": client_secret}, f)
+            json.dump({"client_id": client_id,
+                      "client_secret": client_secret}, f)
     return client_id, client_secret
 
 
@@ -49,7 +51,8 @@ def get_authorized_client(
     )
 
     print("Authorize the app on: ", url)
-    redirected_url = input("↑上に表示されたURLをクリックし、最終的に表示されたURLを入力してください↑: ")
+    redirected_url = input(
+        "↑上に表示されたURLをクリックし、最終的に表示されたURLを入力してください↑ (Please click the URL above and enter the URL you were redirected to): ")
 
     try:
         code = redirected_url.split("code=")[1].split("&")[0]
@@ -59,7 +62,7 @@ def get_authorized_client(
         client.access_token = token_response["access_token"]
     except IndexError:
         print(
-            "最終的に表示されたURLが正しくありません。フォーマットはhttp://localhost/?state=&code=...&scope=read,activity:read_allです。"
+            "最終的に表示されたURLが正しくありません。フォーマットはhttp://localhost/?state=&code=...&scope=read,activity:read_all(The URL you were redirected to is incorrect. The format should be http://localhost/?state=&code=...&scope=read,activity:read_all.)"
         )
         sys.exit(1)
 
@@ -94,6 +97,7 @@ def fetch_activities(client: Client) -> pd.DataFrame:
                 data.append(row)
     except RateLimitExceeded:
         print("APIの呼び出し回数が上限に達しました。15分後に再度実行してください。(200回15分毎のリクエスト、 2,000回デイリー)")
+        print("API call limit reached. Please try again in 15 minutes. (200 requests every 15 minutes, 2,000 requests daily)")
         sys.exit(1)
     df = pd.DataFrame(data)
 
@@ -114,7 +118,8 @@ def fetch_activities(client: Client) -> pd.DataFrame:
 
     # Extract numeric altitude gains value and convert to float
     df["altitude_gains_m"] = df["altitude_gains_m"].astype(str)
-    df["altitude_gains_m"] = df["altitude_gains_m"].str.split(" ").str[0].astype(float)
+    df["altitude_gains_m"] = df["altitude_gains_m"].str.split(
+        " ").str[0].astype(float)
 
     # Reformat location data
     df["start_location"] = df["start_location"].astype(str)
@@ -141,11 +146,12 @@ def fetch_calories(client: Client, df: pd.DataFrame) -> pd.DataFrame:
     except FileNotFoundError:
         df_calories = pd.DataFrame(columns=["id", "calories_kcal"])
 
-    warning_message = "カロリーデータを取得しますか？（API呼び出し回数が制限されているため、大量のデータ(200回15分毎のリクエスト、 2,000回デイリー)を取得するとエラーが発生する可能性があります。）[Y/N]: "
+    warning_message = "カロリーデータを取得しますか？（API呼び出し回数が制限されているため、大量のデータ(200回15分毎のリクエスト、 2,000回デイリー)を取得するとエラーが発生する可能性があります。）(Do you want to fetch calories data? (Fetching a large amount of data may result in an error due to API call limits (200 requests every 15 minutes, 2,000 requests daily).) [Y/N]: "
 
     user_input = input(warning_message)
     while user_input not in ["Y", "N"]:
         print("無効な入力です。もう一度入力してください。")
+        print("Invalid input. Please try again.")
         user_input = input(warning_message)
 
     if user_input == "Y":
@@ -162,16 +168,20 @@ def fetch_calories(client: Client, df: pd.DataFrame) -> pd.DataFrame:
                 try:
                     detailed_activity = client.get_activity(row["id"])
                     new_calories_data.append(
-                        {"id": row["id"], "calories_kcal": detailed_activity.calories}
+                        {"id": row["id"],
+                            "calories_kcal": detailed_activity.calories}
                     )
                     fetch_count += 1  # Increment counter
                     print(
                         f"Fetched calories data for id {row['id']}... ({fetch_count}/{total_rows})"
                     )
                 except AttributeError as e:
-                    print(f"Error fetching detailed activity for id {row['id']}: {e}")
+                    print(
+                        f"Error fetching detailed activity for id {row['id']}: {e}")
                 except RateLimitExceeded:
                     print("APIの呼び出し回数が制限を超えました。15分待ってから再度実行してください。今まで取得したデータは保存されます。")
+                    print(
+                        "API call limit exceeded. Please try again in 15 minutes. The data fetched so far will be saved.")
                     df_new_calories = pd.DataFrame(new_calories_data)
                     df_calories = pd.concat([df_calories, df_new_calories])
                     df_calories.to_csv("strava_data_calories.csv", index=False)
@@ -202,6 +212,8 @@ if __name__ == "__main__":
         df.to_csv("strava_data.csv", index=False)
     except PermissionError:
         print("strava_data.csvを閉じてから再度実行してください。")
+        print("Please close strava_data.csv and try again.")
         sys.exit(1)
     else:
         print("完了。")
+        print("Done.")
