@@ -22,9 +22,11 @@ MAX_PACE = 10
 MIN_DISTANCE = 0.5
 
 # 丸のサイズを設定する
+# Set the size of the markers
 mpl.rcParams["lines.markersize"] = 3.9
 
 # フォントを設定する
+# Set the font
 load_matplotlib_local_fonts("fonts/ipaexg.ttf", 12)
 
 # 他の設定
